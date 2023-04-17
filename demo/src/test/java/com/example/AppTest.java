@@ -11,10 +11,11 @@ public class AppTest
 {
     /**
      * Rigorous Test :-)
+     * Hello stranger...
      */
     @Test
     public void shouldAnswerWithTrue()
     {
-        System.out.println("");
+        System.out.println("Hello stranger :-)");
     }
 }
