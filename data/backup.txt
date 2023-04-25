@@ -1,0 +1,45 @@
+//name(String), description(String), quantity(int), price(double), weight(double),
+//gift(boolean)/interface gift, tax(free/standard/luxury), price coupon(double), percent coupon(int), type(PHYSICAL/DIGITAL), 
+
+pen1,this is pen1,12,12000.0,12.0,true,luxury,1000.0,22,PHYSICAL
+pen2,this is pen2,12,1200.0,2.0,true,luxury,100.0,22,PHYSICAL
+pen3,this is pen3,12,12121.0,22.0,true,luxury,120.0,22,PHYSICAL
+pen4,this is pen4,12,12222.0,2.0,true,luxury,1200.0,22,PHYSICAL
+pen5,this is pen5,12,121212.0,21.0,true,luxury,12020.0,22,PHYSICAL
+video6,this is video6,5,55000.0,null,true,free,3000.0,2,DIGITAL
+video7,this is video7,7,55000.0,null,true,free,4000.0,4,DIGITAL
+video8,this is video8,9,55000.0,null,true,free,5000.0,89,DIGITAL
+video9,this is video9,22,55000.0,null,true,standard,66000.0,1,DIGITAL
+video10,this is video10,15,55000.0,null,true,standard,24000.0,99,DIGITAL
+
+
+
+//cart
+name(String), quantity(int), price(double), type(PHYSICAL/DIGITAL), weight(double), message(String/null)
+coupon(product/null), coupon(price/percent), coupon(int/double)//
+
+cart
+pen2,10,null
+pen3,2,gift pen3
+pen4,1,null
+pen1,2,pen2 gift
+coupon,pen2,percent,20
+
+cart
+pen2,10,null
+pen3,2,gift pen3
+pen4,1,null
+pen1,2,pen2 gift
+coupon,pen4,price,1000.0
+
+
+pen1,this is pen1,12,12000.0,12.0,true,luxury,1000.0,22,PHYSICAL
+pen2,this is pen2,12,1200.0,2.0,true,luxury,100.0,22,PHYSICAL
+pen3,this is pen3,12,12121.0,22.0,true,luxury,120.0,22,PHYSICAL
+pen4,this is pen4,12,12222.0,2.0,true,luxury,1200.0,22,PHYSICAL
+pen5,this is pen5,12,121212.0,21.0,true,luxury,12020.0,22,PHYSICAL
+video6,this is video6,5,55000.0,null,true,free,3000.0,2,DIGITAL
+video7,this is video7,7,55000.0,null,true,free,4000.0,4,DIGITAL
+video8,this is video8,9,55000.0,null,true,free,5000.0,89,DIGITAL
+video9,this is video9,22,55000.0,null,true,standard,66000.0,1,DIGITAL
+video10,this is video10,15,55000.0,null,true,standard,24000.0,99,DIGITAL

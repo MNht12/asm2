@@ -1,0 +1,14 @@
+cart
+pen2,10,null
+pen3,2,gift pen3
+pen4,1,null
+pen1,2,pen2 gift
+coupon,pen2,percent,20
+
+cart
+pen2,10,null
+pen3,2,gift pen3
+pen4,1,null
+pen1,2,pen2 gift
+coupon,pen4,price,1000.0
+
