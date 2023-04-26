@@ -29,7 +29,7 @@ public class App
         // List<String> physicalList = 
         
         try {
-            List<PhysicalProduct> physicalList = Files.lines(Paths.get("data/products.txt"))
+            List<PhysicalProduct> physicalList = Files.lines(Paths.get("demo/src/data/products.txt"))
             .skip(2)
             .filter(line -> line.contains("PHYSICAL"))
             .map(line -> {
