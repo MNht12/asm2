@@ -1,10 +1,12 @@
+//cart
+name(String), quantity(int), weight(double/null), message(String/null)
+coupon(product/null), coupon(price/percent), coupon(int/double)//
 cart
-pen2,10,null
-pen3,2,gift pen3
-pen4,1,null
-pen1,2,pen2 gift
+pen2,10,12,null
+pen3,2,122,gift pen3
+pen4,1,41,null
+video8,2,null,pen2 gift
 coupon,pen2,percent,20
-
 cart
 pen2,10,null
 pen3,2,gift pen3

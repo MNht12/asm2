@@ -2,18 +2,8 @@ package com.example;
 
 public class DigitalProduct extends Product{
 
-    public DigitalProduct(String name, String description, int quantity, double price) {
-        super(name, description, quantity, price);
-    }
-
-    @Override
-    public void setMessage(String msg) {
-        throw new UnsupportedOperationException("Unimplemented method 'setMessage'");
-    }
-
-    @Override
-    public String getMessage() {
-        throw new UnsupportedOperationException("Unimplemented method 'getMessage'");
+    public DigitalProduct(String name, String description, int quantity, double price, String tax, String priceCode, String percentCode) {
+        super(name, description, quantity, price, tax, priceCode, percentCode);
     }
 
     @Override
@@ -31,5 +21,4 @@ public class DigitalProduct extends Product{
         double price = getPrice();
         return "DIGITAL - " + name + ", quantity: " + quantity+ ", description: " + description+ ", price: " + price;
     }
-    
 }

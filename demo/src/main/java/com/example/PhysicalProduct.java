@@ -1,22 +1,12 @@
 package com.example;
-
 public class PhysicalProduct extends Product{
     private double weight;
+    private String message;
 
-    public PhysicalProduct(String name, String description, int quantity, double price, double weight) {
-        super(name, description, quantity, price);
+    public PhysicalProduct(String name, String description, int quantity, double price, double weight, String tax, String priceCode, String percentCode) {
+        super(name, description, quantity, price, tax, priceCode, percentCode);
         this.weight = weight;
         
-    }
-
-    @Override
-    public void setMessage(String msg) {
-        throw new UnsupportedOperationException("Unimplemented method 'setMessage'");
-    }
-
-    @Override
-    public String getMessage() {
-        throw new UnsupportedOperationException("Unimplemented method 'getMessage'");
     }
     
     @Override
