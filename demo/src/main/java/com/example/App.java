@@ -25,7 +25,7 @@ public class App
                 PhysicalProduct physicalProduct = new PhysicalProduct
                 (
                     productData[0], productData[1], Integer.parseInt(productData[2]), Double.parseDouble(productData[3]),
-                    Double.parseDouble(productData[4]), productData[6], line, line
+                    Double.parseDouble(productData[4]), productData[6]
                 );
                 physicalProduct.setCouponPrice(Double.parseDouble(productData[7]));
                 physicalProduct.setPercentCoupon(Integer.parseInt(productData[8]));
@@ -52,7 +52,7 @@ public class App
                 DigitalProduct digitalProduct = new DigitalProduct
                 (
                     productData[0], productData[1], Integer.parseInt(productData[2]), Double.parseDouble(productData[3]), 
-                    productData[6], line, line
+                    productData[6]
                 );
                 
                 // Check productData if price coupon and percent coupon are not null, if not then set value to isCoupon interface

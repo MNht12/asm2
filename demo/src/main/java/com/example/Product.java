@@ -16,14 +16,14 @@ public abstract class Product implements isGift, isCoupon{
     private String priceCode;
     private String percentCode;
 
-    public Product(String name, String description, int quantity, double price, String tax, String priceCode, String percentCode) {
+    public Product(String name, String description, int quantity, double price, String tax) {
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.price = price;
         this.tax = tax;
-        this.priceCode = priceCode;
-        this.percentCode = percentCode;
+        // this.priceCode = priceCode;
+        // this.percentCode = percentCode;
     }
 
     // Override isGift interface methods
@@ -50,16 +50,16 @@ public abstract class Product implements isGift, isCoupon{
         return 1;
     }
 
-    @Override
-    public void setPercentString(String code) {
-        this.percentCode = code;
+    // @Override
+    // public void setPercentString(String code) {
+    //     this.percentCode = code;
         
-    }
+    // }
 
-    @Override
-    public void setPriceString(String code) {
-        this.priceCode = code;
-    }
+    // @Override
+    // public void setPriceString(String code) {
+    //     this.priceCode = code;
+    // }
 
     @Override
     public void setCouponPrice(Double value) {

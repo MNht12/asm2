@@ -9,9 +9,9 @@ public interface isCoupon {
     public int getPercentCoupon();
     public Double getCouponPrice();
     
-    // set coupon to a unique String value
-    public void setPriceString(String code);
-    public void setPercentString(String code);
+    // // set coupon to a unique String value
+    // public void setPriceString(String code);
+    // public void setPercentString(String code);
 
 
 }

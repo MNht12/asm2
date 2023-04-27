@@ -2,8 +2,8 @@ package com.example;
 
 public class DigitalProduct extends Product{
 
-    public DigitalProduct(String name, String description, int quantity, double price, String tax, String priceCode, String percentCode) {
-        super(name, description, quantity, price, tax, priceCode, percentCode);
+    public DigitalProduct(String name, String description, int quantity, double price, String tax) {
+        super(name, description, quantity, price, tax);
     }
 
     @Override
