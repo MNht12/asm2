@@ -95,7 +95,7 @@ public class App
                 // System.out.println(product.getMessage());
             }
         } catch (IOException e) {
-            System.out.println("Error in streams get data for products");
+            e.printStackTrace();
         }
         
         // get carts data using streams
