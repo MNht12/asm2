@@ -12,13 +12,13 @@ public class DigitalProduct extends Product{
         return "DIGITAL - " +  name;
     }
 
-    // displayAll method to show all product in main
+    // displayAll method to show all info of a product
     @Override
     public String displayAll() {
         String name = getName();
         String description = getDescription();
         int quantity = getQuantity();
         double price = getPrice();
-        return "DIGITAL - " + name + ", quantity: " + quantity+ ", description: " + description+ ", price: " + price;
+        return "DIGITAL - " + name + ", quantity: " + quantity+ ", description: " + description+ ", price: " + price+ ", price coupon: " + getCouponPrice()+ ", percent coupon: " + getPercentCoupon();
     }
 }

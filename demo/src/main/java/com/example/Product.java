@@ -1,8 +1,5 @@
 package com.example;
-
-import java.time.Period;
-
-public abstract class Product implements isGift, isCoupon{
+public abstract class Product implements isCoupon{
     private String name;
     private String description;
     private int quantity;
@@ -11,7 +8,7 @@ public abstract class Product implements isGift, isCoupon{
 
     private String message;
 
-    private int precent;
+    private int precentCoupon;
     private Double priceCoupon;
     private String priceCode;
     private String percentCode;
@@ -26,29 +23,7 @@ public abstract class Product implements isGift, isCoupon{
         // this.percentCode = percentCode;
     }
 
-    // Override isGift interface methods
-    @Override
-    public void setMessage(String msg) {
-        message = msg;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
     // Override isCoupon interface methods
-    @Override
-    public Double getCouponPrice() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public int getPercentCoupon() {
-        // TODO Auto-generated method stub
-        return 1;
-    }
 
     // @Override
     // public void setPercentString(String code) {
@@ -62,13 +37,25 @@ public abstract class Product implements isGift, isCoupon{
     // }
 
     @Override
+    public Double getCouponPrice() {
+        // TODO Auto-generated method stub
+        return priceCoupon;
+    }
+
+    @Override
+    public int getPercentCoupon() {
+        // TODO Auto-generated method stub
+        return precentCoupon;
+    }
+
+    @Override
     public void setCouponPrice(Double value) {
         priceCoupon = value;
     }
 
     @Override
     public void setPercentCoupon(int value) {
-        precent = value;
+        precentCoupon = value;
     }
 
     // Getter methods
