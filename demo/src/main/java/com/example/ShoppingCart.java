@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Set;
 
 public class ShoppingCart implements isGift{
-    private String[] cart;
+    private ArrayList<String[]> cart;
     private Set<Product> productSet;
 
     private String message;
@@ -14,17 +14,11 @@ public class ShoppingCart implements isGift{
         this.productSet = productSet;
     }
 
-    public String[] getCart() {
+    public ArrayList<String[]> getCart() {
         return cart;
     }
 
-    @Override
-    public String toString() {
-        return "ShoppingCart [cart=" + Arrays.toString(cart) + ", productSet=" + productSet + ", message=" + message
-                + "]";
-    }
-
-    public void setCart(String[] cart) {
+    public void setCart(ArrayList<String[]> cart) {
         this.cart = cart;
     }
 
