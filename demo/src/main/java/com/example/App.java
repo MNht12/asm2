@@ -93,54 +93,30 @@ public class App
             .skip(4)
             .map (line -> {
                 String[] cartLine = line.split("; ");
-                System.out.println(Arrays.toString(cartLine));
+                // System.out.println(Arrays.toString(cartLine));
                 ShoppingCart shoppingCart = new ShoppingCart(productSet);
+                // shoppingCart.setData(cartLine[0].split(","));
                 for (String strings : cartLine) {
                     String[] cart = strings.split(",");
-                    // System.out.println(Arrays.toString(strings.split(",")));
-                    System.out.println(Arrays.toString(cart));
+                    shoppingCart.setData(cart);
                 }
-                System.out.println("here");
+                // shoppingCart.getCart();
+                // System.out.println("\nAll product: ");
+                // shoppingCart.test();
                 return shoppingCart;
             })
             .collect(Collectors.toList());
+
+            int n = 1;
+            for (ShoppingCart cart : cartList) {
+                System.out.println("Cart" +" "+ n);
+                cart.getCart();
+                n++;
+                System.out.println("");
+            }
+            System.out.println("All products: ");
+            cartList.get(1).test();
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        // get carts data using streams
-        try {
-            // List<String[]> cartList = Files.lines(Paths.get("demo/src/data/carts.txt"))
-            // .skip(4)
-            // .map (line -> {
-            //     String[] cartLine = line.split("; ");
-            //     for (String strings : cartLine) {
-            //         ShoppingCart cart = new ShoppingCart(productSet);
-                    
-            //         // for (String i : strings) {
-            //         //     System.out.println(i);
-            //         //     String name = strings;
-            //         //     // System.out.println(Arrays.toString(name.split(",")));
-            //         // }
-            //         System.out.println(Arrays.toString(strings.split(",")));
-            //     }
-            //     System.out.println("here");
-            //     return cartLine;
-            // })
-            // .collect(Collectors.toList());
-            
-            // for (String[] strings : cartList) {
-            //     // // System.out.println(Arrays.toString(strings));
-            //     // String[] name = strings;
-            //     // System.out.println(Arrays.toString(name));
-            //     for (int i = 0; i < strings.length; i++) {
-            //         String name = strings[i];
-            //         System.out.println(Arrays.toString(name.split(",")));
-            //     }
-            //     System.out.println("here");
-            // }
-            
-        } catch (Exception e) {
             e.printStackTrace();
         }
     }

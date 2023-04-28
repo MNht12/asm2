@@ -12,14 +12,25 @@ public class ShoppingCart implements isGift{
 
     public ShoppingCart(Set<Product> productSet) {
         this.productSet = productSet;
+        this.cart = new ArrayList<String[]>();
     }
 
-    public ArrayList<String[]> getCart() {
-        return cart;
+    public void test() {
+        int n = 0;
+        for (Product product : productSet) {
+            n += 1;
+            System.out.println(product +", number: "+ n);
+        }
     }
 
-    public void setCart(ArrayList<String[]> cart) {
-        this.cart = cart;
+    public void setData(String[] data) {
+        cart.add(data);
+    }
+
+    public void getCart() {
+        for (String[] data : cart) {
+            System.out.println(Arrays.toString(data));
+        }
     }
 
     public Set<Product> getProductSet() {
@@ -40,4 +51,10 @@ public class ShoppingCart implements isGift{
     public String getMessage() {
         return message;
     }
+
+    @Override
+    public String toString() {
+        return "ShoppingCart [cart=" + cart + ", message=" + message + "]";
+    }
+    
 }
