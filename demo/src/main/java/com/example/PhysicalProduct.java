@@ -2,8 +2,8 @@ package com.example;
 public class PhysicalProduct extends Product{
     private double weight;
 
-    public PhysicalProduct(String name, String description, int quantity, double price, double weight, String tax) {
-        super(name, description, quantity, price, tax);
+    public PhysicalProduct(String name, String description, int quantity, double price, double weight, String tax, boolean isGift) {
+        super(name, description, quantity, price, tax, isGift);
         this.weight = weight;
         
     }

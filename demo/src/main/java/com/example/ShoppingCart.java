@@ -2,6 +2,8 @@ package com.example;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 public class ShoppingCart implements isGift{
@@ -27,12 +29,6 @@ public class ShoppingCart implements isGift{
         cart.add(data);
     }
 
-    public void getCart() {
-        for (String[] data : cart) {
-            System.out.println(Arrays.toString(data));
-        }
-    }
-
     public Set<Product> getProductSet() {
         return productSet;
     }
@@ -54,7 +50,16 @@ public class ShoppingCart implements isGift{
 
     @Override
     public String toString() {
-        return "ShoppingCart [cart=" + cart + ", message=" + message + "]";
+        return "ShoppingCart [cart=" + cart + "]";
     }
+
+    public ArrayList<String[]> getCart() {
+        return cart;
+    }
+
+    public void setCart(ArrayList<String[]> cart) {
+        this.cart = cart;
+    }
+
     
 }

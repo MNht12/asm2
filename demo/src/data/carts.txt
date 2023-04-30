@@ -1,9 +1,9 @@
-//cart
-coupon(product/null), coupon(price/percent), coupon(int/double);
-name(String), quantity(int), weight(double/null), message(String/null); 
-(other product)//
+// coupon(product/null), coupon(price/percent), coupon(int/double);
+// name(String), quantity(int), weight(double/null), message(String/null); (other product)
+Example: [[couponName, couponType, couponValue]; [name, quantity, message]; [name, quantity, message]; [name, quantity, message]]
+Example: [pen2,percent,20; pen3,2,122,pen3; pen4,1,41,null; video8,2,null,pen2]
 pen2,percent,20; pen3,2,122,pen3; pen4,1,41,null; video8,2,null,pen2
-null,null,null; pen2,10,null; pen3,2,gift pen3; pen1,2,pen2
-pen5,price,10.0; pen2,10,null; pen3,2,gift pen3; pen1,2,pen2
-pen4,price,12.0; pen2,10,null; pen3,2,gift pen3; pen1,2,pen2
-pen4,price,11.0; pen2,10,null; pen3,2,gift pen3; pen1,2,pen2
+null,null,null; pen2,10,null; pen3,2,gift pen3; pen1,2,pen2 gift
+pen5,price,10.0; pen2,10,null; pen3,2,gift pen3; pen1,2,pen2 gift
+pen4,price,12.0; pen2,10,null; pen3,2,gift pen3; pen1,2,pen2 gift
+pen4,price,11.0; pen2,10,null; pen3,2,gift pen3; pen1,2,pen2 gift

@@ -5,20 +5,20 @@ public abstract class Product implements isCoupon{
     private int quantity;
     private double price;
     private String tax;
-
-    private String message;
+    private boolean isGift;
 
     private int precentCoupon;
     private Double priceCoupon;
     private String priceCode;
     private String percentCode;
 
-    public Product(String name, String description, int quantity, double price, String tax) {
+    public Product(String name, String description, int quantity, double price, String tax, Boolean isGift) {
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.price = price;
         this.tax = tax;
+        this.isGift = isGift;
         // this.priceCode = priceCode;
         // this.percentCode = percentCode;
     }
@@ -36,15 +36,14 @@ public abstract class Product implements isCoupon{
     //     this.priceCode = code;
     // }
 
+    // Override isCoupon interface methods
     @Override
     public Double getCouponPrice() {
-        // TODO Auto-generated method stub
         return priceCoupon;
     }
 
     @Override
     public int getPercentCoupon() {
-        // TODO Auto-generated method stub
         return precentCoupon;
     }
 
@@ -91,6 +90,10 @@ public abstract class Product implements isCoupon{
         return percentCode;
     }
 
+    public boolean getisGift() {
+        return isGift;
+    }
+
     // Setter methods
     public void setDescription(String description) {
         this.description = description;
@@ -114,6 +117,10 @@ public abstract class Product implements isCoupon{
 
     public void setPercentCode(String percentCode) {
         this.percentCode = percentCode;
+    }
+
+    public void setGift(boolean isGift) {
+        this.isGift = isGift;
     }
 
     abstract public String toString();
