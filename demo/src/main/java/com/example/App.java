@@ -112,13 +112,16 @@ public class App
             
             // Select cart
             int cartNumber = 0;
+
+            // Add item to cart example
             Scanner sc = new Scanner(System.in);
             System.out.println("enter cart number:");
             cartNumber = Integer.parseInt(sc.nextLine());
-            String[] addPro = {"pen12", "12", "pen12 gift"};
+            String[] addPro = {"pen12", "12", "pen12 gift"}; // example data
             ShoppingCart cart = cartList.get(cartNumber);
             cart.setData(addPro);
-            ArrayList<String[]> cartProducts = cartList.get(cartNumber).getCart(); // Get all product info from cart
+
+            ArrayList<String[]> cartProducts = cart.getCart(); // Get all product info from cart
 
             int num = cartProducts.size(); // Check how many products
             for (int i = 1; i < num; i++) {
