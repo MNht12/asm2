@@ -7,7 +7,6 @@ import java.util.stream.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
@@ -70,30 +69,6 @@ public class App
             Set<Product> productSet = new HashSet<>(physicalSet);
             productSet.addAll(digitalSet);
 
-            // Scanner sc = new Scanner(System.in);
-            // System.out.println("enter product name:");
-            // String name = sc.nextLine();
-            // System.out.println("enter mess:");
-            // String mess = sc.nextLine();
-
-            // for (Product product : productSet) {
-            //     System.out.println("\n");
-            //     System.out.println(product.displayAll());
-
-            //     // get set message UI
-            //     if (product.getName().equals(name)) {
-            //         product.setMessage(mess);
-            //         System.out.println(product.getName() + " " + product.getMessage());
-            //     }
-
-            //     // get set message 
-            //     Scanner sc = new Scanner(System.in);
-            //     System.out.println("enter message:");
-            //     String mess = sc.nextLine();
-            //     product.setMessage(mess);
-            //     System.out.println(product.getMessage());
-            // }
-
             List<ShoppingCart> cartList = Files.lines(Paths.get("demo/src/data/carts.txt"))
             .skip(4) // skip 4 lines of example in carts.txt
             .map (line -> {
@@ -112,41 +87,16 @@ public class App
             
             // Select cart
             int cartNumber = 0;
-
-            // Add item to cart example
+            int size = cartList.size();
+            System.out.println("There are: "+ size +" carts, please chose cart number between 1 - " +size);
             Scanner sc = new Scanner(System.in);
-            System.out.println("enter cart number:");
-            cartNumber = Integer.parseInt(sc.nextLine());
-            String[] addPro = {"pen12", "12", "pen12 gift"}; // example data
+            System.out.println("Enter cart number:");
+            cartNumber = 1 - Integer.parseInt(sc.nextLine());
             ShoppingCart cart = cartList.get(cartNumber);
-            cart.setData(addPro);
 
             ArrayList<String[]> cartProducts = cart.getCart(); // Get all product info from cart
+            cart.setMessage();
 
-            int num = cartProducts.size(); // Check how many products
-            for (int i = 1; i < num; i++) {
-
-                // Get info/data of each product
-                String[] productData = cartProducts.get(i);
-                String name = productData[0];
-                String quantity = productData[1];
-                String message = "";
-                if (productData[2].equals("null")) {
-                    message = "No gift message!";
-                } else {
-                    message = productData[2]; 
-                }
-                System.out.println("Product name: "+ name + ", Quantity: " + quantity + ", Gift message: " + message);
-                System.out.println(productData[0] = "Change Name"); 
-                System.out.println("");
-            }
-
-            // System.out.println("All products: ");
-            // n =1;
-            // for (Product product : productSet) {
-            //     System.out.println(product.displayAll() +" "+n);
-            //     n++;
-            // }
         } catch (IOException e) {
             e.printStackTrace();
         }
