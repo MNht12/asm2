@@ -22,7 +22,8 @@ public class PhysicalProduct extends Product{
         int quantity = getQuantity();
         double price = getPrice();
         double weight = getWeight();
-        return "PHYSICAL - " + name + ", quantity: " + quantity+ ", description: " + description+ ", price: " + price+ ", weight: " + weight+ ", price coupon: " + getCouponPrice()+ ", percent coupon: " + getPercentCoupon();
+        return "PHYSICAL - " + name + ", quantity: " + quantity+ ", description: " + description+ ", price: " + price+ ", weight: " + weight;
+        // return "PHYSICAL - " + name + ", quantity: " + quantity+ ", description: " + description+ ", price: " + price+ ", weight: " + weight+ ", price coupon: " + getCouponPrice()+ ", percent coupon: " + getPercentCoupon();
     }
 
     public double getWeight() {

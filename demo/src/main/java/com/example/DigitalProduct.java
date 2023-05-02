@@ -19,6 +19,7 @@ public class DigitalProduct extends Product{
         String description = getDescription();
         int quantity = getQuantity();
         double price = getPrice();
-        return "DIGITAL - " + name + ", quantity: " + quantity+ ", description: " + description+ ", price: " + price+ ", price coupon: " + getCouponPrice()+ ", percent coupon: " + getPercentCoupon();
+        return "DIGITAL - " + name + ", quantity: " + quantity+ ", description: " + description+ ", price: " + price;
+        // return "DIGITAL - " + name + ", quantity: " + quantity+ ", description: " + description+ ", price: " + price+ ", price coupon: " + getCouponPrice()+ ", percent coupon: " + getPercentCoupon();
     }
 }
