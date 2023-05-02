@@ -1,0 +1,9 @@
+// coupon(product/null), coupon(price/percent), coupon(int/double);
+// name(String), quantity(int), weight(double/null), message(String/null); (other product)
+Example: [[couponCode]; [name, quantity, message, weight]; [name, quantity, message, weight]; [name, quantity, message, weight]]
+Example: [percentpen2; pen3,2,pen3,22.0; pen4,1,null,2.0; video8,2,video8 mess,null]
+percentpen2; pen3,2,pen3,22.0; pen4,1,null,2.0; video8,2,video8 mess,null
+null; pen2,10,null,2.0; pen3,2,gift pen3,22.0; pen1,2,pen1 gift,12.0
+pricepen21; pen21,5,null,1233.0; pen3,2,gift pen3,22.0; pen1,2,pen1 gift,12.0
+pricepen4; pen2,10,null,2.0; pen3,2,null,22.0; pen4,2,null,2.0
+null; pen1,1,null,12.0; pen3,2,gift pen3; pen1,2,pen1 gift,12.0
