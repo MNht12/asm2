@@ -19,8 +19,6 @@ public abstract class Product implements isCoupon{
         this.price = price;
         this.tax = tax;
         this.isGift = isGift;
-        // this.priceCode = priceCode;
-        // this.percentCode = percentCode;
     }
 
     // Override isCoupon interface methods
@@ -38,6 +36,18 @@ public abstract class Product implements isCoupon{
 
     // Override isCoupon interface methods
     @Override
+    public void setCouponPrice(Double value, String code) {
+        priceCoupon = value;
+        priceCode = code;
+    }
+
+    @Override
+    public void setPercentCoupon(int value, String code) {
+        precentCoupon = value;
+        percentCode = code;
+    }
+
+    @Override
     public Double getCouponPrice() {
         return priceCoupon;
     }
@@ -45,16 +55,6 @@ public abstract class Product implements isCoupon{
     @Override
     public int getPercentCoupon() {
         return precentCoupon;
-    }
-
-    @Override
-    public void setCouponPrice(Double value) {
-        priceCoupon = value;
-    }
-
-    @Override
-    public void setPercentCoupon(int value) {
-        precentCoupon = value;
     }
 
     // Getter methods
@@ -126,5 +126,9 @@ public abstract class Product implements isCoupon{
     abstract public String toString();
 
     abstract public String displayAll();
+    
+    public String displayCoupon() {
+        return "name: " +this.name+" "+getCouponPrice()+" "+getPercentCoupon() +" "+ getCouponPrice() +" "+getPriceCode();
+    }
     
 }

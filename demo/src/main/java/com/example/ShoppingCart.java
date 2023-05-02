@@ -10,9 +10,8 @@ public class ShoppingCart implements isGift{
 
     private String message;
 
-    public ShoppingCart(Set<Product> productSet) {
-        this.productSet = productSet;
-        this.cart = new ArrayList<String[]>();
+    public ShoppingCart() {
+        cart = new ArrayList<String[]>();
         
     }
 
@@ -28,13 +27,14 @@ public class ShoppingCart implements isGift{
         cart.add(data);
     }
 
-    public Set<Product> getProductSet() {
+    public Set<Product> getProductSet(Set<Product> productSet) {
         return productSet;
     }
 
     public void setProductSet(Set<Product> productSet) {
         this.productSet = productSet;
     }
+
 
     // Override isGift interface methods
     @Override
