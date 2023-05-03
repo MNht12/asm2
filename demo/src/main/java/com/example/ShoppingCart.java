@@ -10,8 +10,6 @@ public class ShoppingCart implements isGift{
     private ArrayList<String[]> cart;
     private Set<Product> productSet;
 
-    private String message;
-
     public ShoppingCart() {
         cart = new ArrayList<String[]>();
     }
@@ -58,28 +56,34 @@ public class ShoppingCart implements isGift{
         Scanner sc = new Scanner(System.in);
         System.out.println("By entering a coupon, the previous coupon (if have) will be replaced with the new coupon!");
         while (true) {
-            try {
-                System.out.println("Enter coupon code OR enter QUIT/quit to go back:");
-                String code = sc.nextLine();
-                if (code.equals("QUIT") || code.equals("quit")) { // If user enter quit then break/go back
+            Boolean foundCoupon = false;
+            System.out.println("Enter coupon code OR enter QUIT/quit to go back:");
+            String code = sc.nextLine();
+            if (code.equals("QUIT") || code.equals("quit")) { // If user enter quit then break/go back
+                break;
+            }
+            for (Product product : productSet) {
+                // check product price coupon
+                if (product.getPriceCode().equals(code)) { 
+                    cart.get(0)[0] = code; // change old coupon to mew coupon
+                    foundCoupon = true;
                     break;
                 }
-                for (Product product : productSet) {
-                    // check product price coupon
-                    if (product.getPriceCode().equals(code)) { 
-                        cart.get(0)[0] = code; // change old coupon to mew coupon
-                    }
 
-                    // check product percent coupon
-                    if (product.getPercentCode().equals(code)) { 
-                        cart.get(0)[0] = code; // change old coupon to new coupon
-                    }
+                // check product percent coupon
+                if (product.getPercentCode().equals(code)) { 
+                    cart.get(0)[0] = code; // change old coupon to new coupon
+                    foundCoupon = true;
+                    break;
                 }
-            } catch (Exception e) {
-                System.out.println("Invalid coupon code!");
+            }
+            if (!foundCoupon) {
+                System.out.println("There is no coupon code: " + code + ", or this code cannot apply to this cart.");
+            } else {
+                System.out.println("Coupon for this cart has been changed to: " + code);
+                break;
             }
         }
-        sc.close();
     }
 
     // remove coupon method
@@ -122,7 +126,7 @@ public class ShoppingCart implements isGift{
         for (String[] product : cart) {
             if (product[0].equals(productName)) {
                 productFound = true;
-                productItem = product;
+                productItem = product; // store all product in productItem
             }
         }
         if (!productFound) {
@@ -132,23 +136,25 @@ public class ShoppingCart implements isGift{
         if (productFound) {
             // Get product object info
             for (Product product : productSet) {
-                if (product.getName().equals(productName)) { // check name and get information of that product item
+                if (product.getName().equals(productName)) { // check name of that item with product name
                     if (product.getisGift()) { // check if product is a gift product or not
                         System.out.println("This product can be a gift product. Please enter a Gift Message:");
                         String giftMessage = sc.nextLine();
-                        String itemName = productItem[0];
-                        String itemMessage = productItem[2];
-                        itemMessage = giftMessage;
                         System.out.println("");
-                        System.out.println("Gift message for Product Item: "+itemName+" in this cart has been updated to: "+itemMessage); 
-                        message = itemMessage;
+                        System.out.println("Gift message for Product Item: "+productName+" in this cart has been updated to: "+giftMessage); 
+                        
+                        // check for item name and change gift message
+                        for (int i = 0; i < cart.size(); i++) {
+                            if (cart.get(i)[0].equals(productName)) {
+                                cart.get(i)[2] = giftMessage;
+                            }
+                        }
                     } else {
                         System.out.println("This " +product+ " cannot be a gift product!"); // If product item is not a gift product
                     }
                 }
             }
         }
-        sc.close();
     }
 
     @Override

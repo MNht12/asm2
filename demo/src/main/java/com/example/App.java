@@ -110,11 +110,12 @@ public class App
             ShoppingCart theCart = cartList.get(Integer.parseInt(cartNumber)-1);
             theCart.setProductSet(productSet); // set productSet to cart
             theCart.showCartDetail(theCart);
+            System.out.println("\n");
 
             boolean running = true;
-            int option = 0;
             // UI using Switch case
             while (running) {
+                theCart.setProductSet(productSet); // update new productSet data to cart
                 try {
                     System.out.println("Enter an option to continue:");
                     System.out.println(
@@ -127,13 +128,13 @@ public class App
                                 "7 Update messages for gift product items\n" +
                                 "8 Apply coupon to cart\n" +
                                 "9 Remove coupons to cart\n" +
-                                "10 View cart detaisl\n" +
+                                "10 View cart details\n" +
                                 "11 Print purchase receipts\n" +
                                 "12 Sort cart\n" +
                                 "0 Back to select cart\n" +
                                 "Please enter an option:"
                                 );
-                    option = sc.nextInt();
+                    int option = sc.nextInt();
                     sc.nextLine(); // take the next line
                     switch (option) {
                         case 1: {
@@ -159,25 +160,31 @@ public class App
                         case 6: {
                             // View messages for gift product items
                             theCart.getMessage();
+                            System.out.println("\n");
                             break;
                         }
                         case 7: {
                             // Update messages for gift product items
                             theCart.setMessage();
+                            System.out.println("\n");
                             break;
                         }
                         case 8: {
                             // Apply coupon to cart
                             theCart.addCoupon();
+                            System.out.println("\n");
                             break;
                         }
                         case 9: {
                             // Remove coupons to cart
                             theCart.removeCoupon();
+                            System.out.println("\n");
                             break;
                         }
                         case 10: {
-                            // View cart detaisl
+                            // View cart details
+                            theCart.showCartDetail(theCart);
+                            System.out.println("\n");
                             break;
                         }
                         case 11: {
@@ -190,10 +197,14 @@ public class App
                         }
                         case 0: {
                             // Go back to select cart
+                            System.out.println("BACK");
                             running = false;
                         }
+                        default: {
+                            System.out.println("Invalid option!");
+                        }
                     }
-                } catch (Exception e) {
+                } catch (NumberFormatException e) {
                     System.out.println("Invalid option!");
                 }
             }
@@ -202,6 +213,5 @@ public class App
             System.out.println("Invalid cart number!");
            }
         }
-        
     }
 }
