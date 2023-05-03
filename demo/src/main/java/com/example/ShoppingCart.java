@@ -1,6 +1,8 @@
 package com.example;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -12,15 +14,79 @@ public class ShoppingCart implements isGift{
 
     public ShoppingCart() {
         cart = new ArrayList<String[]>();
-        
     }
 
-    public void test() {
-        int n = 0;
-        for (Product product : productSet) {
-            n += 1;
-            System.out.println(product +", number: "+ n);
+    // Show cart details
+    public void showCartDetail(ShoppingCart theCart) {
+        // theCart.setProductSet(productSet); //set productSet to cart
+        ArrayList<String[]> cart = theCart.getCart();
+
+        String[] cartcoupon = cart.get(0);
+        String coupon = cartcoupon[0];
+        if (cartcoupon[0].equals("null")) {
+            coupon = "<No coupon>";
         }
+        System.out.println("Cart coupon: "+coupon);
+        System.out.println("All items in this cart:");
+        int cartSize = cart.size();
+        List<String> allCoupon = new ArrayList<>();
+        for (int i = 1; i < cartSize; i++) {
+            String[] productItem = cart.get(i);
+            String itemName = productItem[0];
+            String itemQuantity = productItem[1];
+            String itemGiftMessage = productItem[2];
+            if (itemGiftMessage.equals("null")) {
+                itemGiftMessage = "<No gift message>";
+            }
+            System.out.println("Item name: " +itemName+", Item quantity: "+itemQuantity+", Item gift message: "+itemGiftMessage);
+            for (Product product : productSet) {
+                if (product.getName().equals(itemName)) {
+                    if (!product.getPriceCode().equals("null")) {
+                        allCoupon.add(product.getPriceCode());
+                    }
+                    if (!product.getPercentCode().equals("null")) {
+                        allCoupon.add(product.getPercentCode());
+                    }
+                }
+            }
+        }
+        System.out.println("Here are all the coupons that you can apply to this cart: "+allCoupon);
+    }
+
+    // add/change coupon method
+    public void addCoupon() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("By entering a coupon, the previous coupon (if have) will be replaced with the new coupon!");
+        while (true) {
+            try {
+                System.out.println("Enter coupon code OR enter QUIT/quit to go back:");
+                String code = sc.nextLine();
+                if (code.equals("QUIT") || code.equals("quit")) { // If user enter quit then break/go back
+                    break;
+                }
+                for (Product product : productSet) {
+                    // check product price coupon
+                    if (product.getPriceCode().equals(code)) { 
+                        cart.get(0)[0] = code; // change old coupon to mew coupon
+                    }
+
+                    // check product percent coupon
+                    if (product.getPercentCode().equals(code)) { 
+                        cart.get(0)[0] = code; // change old coupon to new coupon
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid coupon code!");
+            }
+        }
+        sc.close();
+    }
+
+    // remove coupon method
+    public void removeCoupon() {
+        String noCode = "null";
+        cart.get(0)[0] = noCode; // remove coupon and change to "null"
+        System.out.println("\nCoupon has been removed for this cart!\n");
     }
 
     public void setData(String[] data) {
@@ -40,7 +106,7 @@ public class ShoppingCart implements isGift{
     @Override
     public void setMessage() {
         // Print out all product name in the cart
-        System.out.println("All product item in this cart: ");
+        System.out.println("All product items in this cart: ");
         for (int i = 1; i < cart.size(); i++) {
             String[] itemData = cart.get(i);
             System.out.println("Name: "+itemData[0]);
@@ -82,11 +148,35 @@ public class ShoppingCart implements isGift{
                 }
             }
         }
+        sc.close();
     }
 
     @Override
-    public String getMessage() {
-        return message;
+    public void getMessage() {
+        System.out.println("All product items in this cart: ");
+        for (int i = 1; i < cart.size(); i++) {
+            String[] itemData = cart.get(i);
+            System.out.println("Name: "+itemData[0]);
+        }
+        System.out.println("Enter Product name: ");
+        Scanner sc = new Scanner(System.in);
+        String productName = sc.nextLine();
+
+        // Check if user enter a correct product item name and if yes, store that item in productItem
+        boolean productFound = false;
+        for (String[] product : cart) {
+            if (product[0].equals(productName)) {
+                String message = product[2];
+                if (message.equals("null")) {
+                    message = "Product item: " +productName+" does not have a gift message!";
+                }
+                System.out.println("Product item: " +productName+"'s gift message: "+message);
+                productFound = true;
+            }
+        }
+        if (!productFound) {
+            System.out.println("There is no " +productName+" item in this cart"); // If user enter an incorrect name
+        }
     }
 
 
@@ -101,7 +191,5 @@ public class ShoppingCart implements isGift{
 
     public void setCart(ArrayList<String[]> cart) {
         this.cart = cart;
-    }
-
-    
+    } 
 }
