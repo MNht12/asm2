@@ -33,4 +33,27 @@ public class PhysicalProduct extends Product{
     public void setWeight(double weight) {
         this.weight = weight;
     }
+
+    @Override
+    public int taxPercentage() {
+
+        String tax = getTax();
+        int taxPercentage = 0;
+        
+        try {
+            if (tax.equals("free")) {
+                taxPercentage = 0;
+            }
+            if (tax.equals("standard")) {
+                taxPercentage = 10;
+            }
+            if (tax.equals("luxury")) {
+                taxPercentage = 20;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return taxPercentage;
+    }
 }

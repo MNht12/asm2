@@ -128,4 +128,6 @@ public abstract class Product implements isCoupon{
     abstract public String toString();
 
     abstract public String displayAll();
+
+    abstract public int taxPercentage();
 }
