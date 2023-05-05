@@ -23,6 +23,10 @@ public class DigitalProduct extends Product{
         // return "DIGITAL - " + name + ", quantity: " + quantity+ ", description: " + description+ ", price: " + price+ ", price coupon: " + getCouponPrice()+ ", percent coupon: " + getPercentCoupon();
     }
 
+    /**
+     * Override taxPercentage
+     */
+
     @Override
     public int taxPercentage() {
 

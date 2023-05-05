@@ -129,5 +129,10 @@ public abstract class Product implements isCoupon{
 
     abstract public String displayAll();
 
+    /**
+     * Method to get tax percentage for each products
+     * @return
+     */
+
     abstract public int taxPercentage();
 }

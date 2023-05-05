@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.HashSet;
 
 public class ShoppingCart implements isGift{
     private ArrayList<String[]> cart;
@@ -198,4 +199,21 @@ public class ShoppingCart implements isGift{
     public void setCart(ArrayList<String[]> cart) {
         this.cart = cart;
     } 
+
+    /**
+     * Converts ArrayList to HashSet 
+     */ 
+
+     public Set<String> cartSet(ArrayList<String[]> cartList) {
+        
+        HashSet<String> cartSet = new HashSet<>();
+
+        for (String[] cartProduct : cartList) {
+            for (String product : cartProduct)
+                if (!cartSet.contains(product)) {
+                    cartSet.add(product);
+            }
+        }
+        return cartSet;
+    }
 }
