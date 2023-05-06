@@ -136,6 +136,7 @@ public class App {
                                         "10 View cart details\n" +
                                         "11 Print purchase receipts\n" +
                                         "12 Sort cart\n" +
+                                        "13 Show list\n" +
                                         "0 Back to select cart\n" +
                                         "Please enter an option:");
                         int option = sc.nextInt();
@@ -206,10 +207,19 @@ public class App {
                             }
                             case 2: {
                                 // Remove product from store
+                                System.out.println("Name of the product you want to remove:");
+                                String removeproduct = sc.nextLine();
+                                for (Product rp : productSet) {
+                                    if (rp.getName().equalsIgnoreCase(removeproduct)) {
+                                        productSet.remove(rp);
+                                        System.out.println("Product named: " + removeproduct + "has been removed");
+                                    }
+                                }
                                 break;
                             }
                             case 3: {
                                 // Edit product
+
                                 break;
                             }
                             case 4: {
@@ -257,6 +267,10 @@ public class App {
                             case 12: {
                                 // Sort cart
                                 break;
+                            }
+                            case 13: {
+                                // Show list
+                                System.out.println(productSet);
                             }
                             case 0: {
                                 // Go back to select cart
