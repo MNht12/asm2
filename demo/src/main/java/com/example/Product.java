@@ -2,8 +2,6 @@ package com.example;
 
 import java.util.Scanner;
 
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.LowerCase;
-
 public abstract class Product implements isCoupon {
     private String name;
     private String description;
