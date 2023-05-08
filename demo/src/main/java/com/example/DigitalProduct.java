@@ -19,7 +19,30 @@ public class DigitalProduct extends Product{
         String description = getDescription();
         int quantity = getQuantity();
         double price = getPrice();
-        return "DIGITAL - " + name + ", quantity: " + quantity+ ", description: " + description+ ", price: " + price;
-        // return "DIGITAL - " + name + ", quantity: " + quantity+ ", description: " + description+ ", price: " + price+ ", price coupon: " + getCouponPrice()+ ", percent coupon: " + getPercentCoupon();
+        return "DIGITAL - " + name + ", quantity: " + quantity+ ", price: " + price;
+    }
+    
+    @Override
+    public int taxPercentage() {
+
+        String tax = getTax();
+        int taxPercentage = 0;
+        boolean isTaxType = false;
+
+        if (tax.equals("free")) {
+            taxPercentage = 0;
+            isTaxType = true;
+        } else if (tax.equals("standard")) {
+            taxPercentage = 10;
+            isTaxType = true;
+        } else if (tax.equals("luxury")) {
+            taxPercentage = 20;
+            isTaxType = true;
+        } else {
+            System.out.println("Invalid value output!");
+            isTaxType = false;
+        }
+
+        return taxPercentage;
     }
 }

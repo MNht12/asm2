@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-public class ShoppingCart implements isGift{
+public class ShoppingCart implements isGift {
     private ArrayList<String[]> cart;
     private Set<Product> productSet;
 
     public ShoppingCart() {
-        cart = new ArrayList<String[]>();
+        this.cart = new ArrayList<String[]>();
     }
 
     // Show cart details
@@ -24,19 +24,47 @@ public class ShoppingCart implements isGift{
         if (cartcoupon[0].equals("null")) {
             coupon = "<No coupon>";
         }
-        System.out.println("Cart coupon: "+coupon);
+        System.out.println("Cart coupon: " + coupon);
         System.out.println("All items in this cart:");
         int cartSize = cart.size();
         List<String> allCoupon = new ArrayList<>();
+        int tax = 0;
+        double fee = 0.0;
+        double price = 0;
+        String itemName = "";
+        String itemQuantity = "";
+        String itemGiftMessage = "";
+        double totalWeight = 0.0;
+        double totalAmount = 0.0;
+        
+        
         for (int i = 1; i < cartSize; i++) {
             String[] productItem = cart.get(i);
-            String itemName = productItem[0];
-            String itemQuantity = productItem[1];
-            String itemGiftMessage = productItem[2];
+            itemName = productItem[0];
+            itemQuantity = productItem[1];
+            itemGiftMessage = productItem[2];
+
+            for (Product p : productSet) {
+                if (p.getName().equals(itemName)) {
+
+                    price += p.getPrice() * Integer.parseInt(itemQuantity);
+
+                    tax += p.getPrice() * (p.taxPercentage() / 100) * Integer.parseInt(itemQuantity);
+
+                    if (p instanceof PhysicalProduct) {
+                        totalWeight += ((PhysicalProduct) p).getWeight() * Integer.parseInt(itemQuantity);
+                        fee += totalWeight * 0.1;
+                    }
+                }
+            }
+            
+            totalAmount += price + tax + fee;
+
             if (itemGiftMessage.equals("null")) {
                 itemGiftMessage = "<No gift message>";
             }
-            System.out.println("Item name: " +itemName+", Item quantity: "+itemQuantity+", Item gift message: "+itemGiftMessage);
+            System.out.println("Item name: " + itemName + ", Item quantity: " + itemQuantity + ", Item gift message: "
+                    + itemGiftMessage);
             for (Product product : productSet) {
                 if (product.getName().equals(itemName)) {
                     if (!product.getPriceCode().equals("null")) {
@@ -48,7 +76,10 @@ public class ShoppingCart implements isGift{
                 }
             }
         }
-        System.out.println("Here are all the coupons that you can apply to this cart: "+allCoupon);
+
+        System.out.println("FEE: " + fee);
+
+        System.out.println("Here are all the coupons that you can apply to this cart: " + allCoupon);
     }
 
     // add/change coupon method
@@ -64,14 +95,14 @@ public class ShoppingCart implements isGift{
             }
             for (Product product : productSet) {
                 // check product price coupon
-                if (product.getPriceCode().equals(code)) { 
+                if (product.getPriceCode().equals(code)) {
                     cart.get(0)[0] = code; // change old coupon to mew coupon
                     foundCoupon = true;
                     break;
                 }
 
                 // check product percent coupon
-                if (product.getPercentCode().equals(code)) { 
+                if (product.getPercentCode().equals(code)) {
                     cart.get(0)[0] = code; // change old coupon to new coupon
                     foundCoupon = true;
                     break;
@@ -105,90 +136,133 @@ public class ShoppingCart implements isGift{
         this.productSet = productSet;
     }
 
-
     // Override isGift interface methods
     @Override
+    /**
+     * In this method, 2 cases can happen, the first is to set a new gift message, and the second is to update the gift message to an item that already has a gift message.
+     * In the second case, one item name can have many items in the cart and each one can have a different gift message, for example: pen1 - message one; pen1 - message two.
+     * To solve the second case, I store all gift messages of one item in a list and use that list to access the correct item.
+     */
     public void setMessage() {
-        // Print out all product name in the cart
-        System.out.println("All product items in this cart: ");
-        for (int i = 1; i < cart.size(); i++) {
-            String[] itemData = cart.get(i);
-            System.out.println("Name: "+itemData[0]);
-        }
-
-        System.out.println("Enter Product name: ");
         Scanner sc = new Scanner(System.in);
-        String productName = sc.nextLine();
+        boolean running = true;
+        while (running) {
+            try {
+                System.out.println("Enter 1 to set a new message for items that do not have one or 2 to update the message for items that already have a gift message.");
+                System.out.println("Or enter 0 to go back!");
+                String option = sc.nextLine();
 
-        // Check if user enter a correct product item name and if yes, store that item in productItem
-        String[] productItem = new String[0];
-        boolean productFound = false;
-        for (String[] product : cart) {
-            if (product[0].equals(productName)) {
-                productFound = true;
-                productItem = product; // store all product in productItem
-            }
-        }
-        if (!productFound) {
-            System.out.println("There is no " +productName+" item in this cart"); // If user enter an incorrect name
-        }
+                // update gift message
+                if (option.equals("2")) {
+                    System.out.println("Enter Product name: ");
+                    String productName = sc.nextLine();
+                    List<String> messList = new ArrayList<>(); 
+                    int num = 0;
 
-        if (productFound) {
-            // Get product object info
-            for (Product product : productSet) {
-                if (product.getName().equals(productName)) { // check name of that item with product name
-                    if (product.getisGift()) { // check if product is a gift product or not
-                        System.out.println("This product can be a gift product. Please enter a Gift Message:");
-                        String giftMessage = sc.nextLine();
-                        System.out.println("");
-                        System.out.println("Gift message for Product Item: "+productName+" in this cart has been updated to: "+giftMessage); 
-                        
-                        // check for item name and change gift message
-                        for (int i = 0; i < cart.size(); i++) {
-                            if (cart.get(i)[0].equals(productName)) {
-                                cart.get(i)[2] = giftMessage;
-                            }
-                        }
-                    } else {
-                        System.out.println("This " +product+ " cannot be a gift product!"); // If product item is not a gift product
+                    // get all items with the name user entered
+                    Boolean found = false;
+                    for (int i = 1; i < cart.size(); i++) {
+                        String[] itemData = cart.get(i);
+                        if (!itemData[2].equals("null") && itemData[0].equals(productName)) {
+                            num++;
+                            messList.add(itemData[2]);
+                            found = true;
+                            System.out.println("Item: "+itemData[0]+", gift message: "+itemData[2]+" No."+num);
+                        } 
                     }
+                    if (found == false) {
+                        System.out.println("No item with name: "+ productName +" in this cart!");
+                        running = false;
+                    }
+                    String number = "";
+                    String itemMess = "";
+                    while (true) {
+                        System.out.println("Enter product item number to update message for that item");
+                        number = sc.nextLine();
+                        if (Integer.parseInt(number) <= messList.size()) {
+                            itemMess = messList.get(Integer.parseInt(number)-1);
+                            break;
+                        }                        
+                    }
+
+                    System.out.println("Enter new message:");
+                    String newMessage = sc.nextLine();
+
+                    for (int i = 1; i < cart.size(); i++) {
+                        String[] itemData = cart.get(i);
+                        if (itemData[2].equals(itemMess)) {
+                            cart.get(i)[2] = newMessage;
+                            System.out.println("Update gift message successfully!");
+                        }
+                    }
+
+                // set new gift message
+                } else if (option.equals("1")) {
+                    System.out.println("Enter Product name: ");
+                    String productName = sc.nextLine();
+                    boolean found = false;
+
+                    for (int i = 1; i < cart.size(); i++) {
+                        String[] itemData = cart.get(i);
+                        if (itemData[2].equals("null") && itemData[0].equals(productName)) { // if there is NO a gift message for item user entered
+                            System.out.println("Enter new gift message:");
+                            String message = sc.nextLine();
+                            if (itemData[1].equals("1")) {
+                                cart.get(i)[2] = message;
+                            } else {
+                                int quantity = Integer.parseInt(itemData[1])-1;
+                                cart.get(i)[1] = Integer.toString(quantity);
+                                String[] giftItem = {itemData[0],"1",message,itemData[3]};
+                                setData(giftItem);
+                            }
+                            found = true;
+                            System.out.println("Set new gift message successfully!");
+                        }
+                    }
+                    if (!found) {
+                        System.out.println("No product item with name: "+productName+" in this cart!");
+                    }
+                } else {
+                    break; // back to all features
                 }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input!");
             }
         }
     }
 
     @Override
     public void getMessage() {
-        System.out.println("All product items in this cart: ");
-        for (int i = 1; i < cart.size(); i++) {
-            String[] itemData = cart.get(i);
-            System.out.println("Name: "+itemData[0]);
-        }
         System.out.println("Enter Product name: ");
         Scanner sc = new Scanner(System.in);
         String productName = sc.nextLine();
 
-        // Check if user enter a correct product item name and if yes, store that item in productItem
         boolean productFound = false;
-        for (String[] product : cart) {
-            if (product[0].equals(productName)) {
-                String message = product[2];
-                if (message.equals("null")) {
-                    message = "Product item: " +productName+" does not have a gift message!";
-                }
-                System.out.println("Product item: " +productName+"'s gift message: "+message);
+        for (int i = 1; i < cart.size(); i++) { // loop all items in cart
+            String[] itemData = cart.get(i);
+            if (itemData[0].equals(productName) && !itemData[2].equals("null")) { // if user input = item name and check if the item has a gift message or not
+                System.out.println("Product item: " + itemData[0] + "'s' gift message: " + itemData[2]);
                 productFound = true;
             }
         }
         if (!productFound) {
-            System.out.println("There is no " +productName+" item in this cart"); // If user enter an incorrect name
+            System.out.println("Product item: " + productName + " does not have a gift message!"); // If user enter an incorrect name
         }
     }
 
+    public int taxPercentage(Product product) {
 
-    @Override
-    public String toString() {
-        return "ShoppingCart [cart=" + cart + "]";
+        String tax = product.getTax();
+        int taxPercentage = 0;
+
+        if (tax.equals("free")) {
+            taxPercentage = 0;
+        } else if (tax.equals("standard")) {
+            taxPercentage = 10;
+        } else if (tax.equals("luxury")) {
+            taxPercentage = 20;
+        }
+        return taxPercentage;
     }
 
     public ArrayList<String[]> getCart() {
@@ -197,5 +271,9 @@ public class ShoppingCart implements isGift{
 
     public void setCart(ArrayList<String[]> cart) {
         this.cart = cart;
-    } 
+    }
+
+    public void addToCart() {
+
+    }
 }

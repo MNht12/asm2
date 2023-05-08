@@ -1,5 +1,10 @@
 package com.example;
-public abstract class Product implements isCoupon{
+
+import java.util.Scanner;
+
+import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.LowerCase;
+
+public abstract class Product implements isCoupon {
     private String name;
     private String description;
     private int quantity;
@@ -71,16 +76,12 @@ public abstract class Product implements isCoupon{
         return price;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setTax(String tax) {
-        this.tax = tax;
-    }
-
     public boolean getisGift() {
         return isGift;
+    }
+
+    public String getTax() {
+        return tax;
     }
 
     // Setter methods
@@ -96,16 +97,22 @@ public abstract class Product implements isCoupon{
         this.price = price;
     }
 
-    public String getTax() {
-        return tax;
-    }
-
     public void setGift(boolean isGift) {
         this.isGift = isGift;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTax(String tax) {
+        this.tax = tax;
     }
 
     abstract public String toString();
 
     abstract public String displayAll();
+
+    abstract public int taxPercentage();
     
 }
