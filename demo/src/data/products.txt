@@ -6,7 +6,7 @@
 
 pen1,this is pen1,12,1201.0,12.0,true,free,12.0,0,pricepen1,null,PHYSICAL
 pen2,this is pen2,12,1200.0,2.0,false,standard,0.0,12,null,percentpen2,PHYSICAL
-pen3,this is pen3,12,1212.0,22.0,false,luxury,0.0,0,null,null,PHYSICAL
+pen3,this is pen3,12,1212.0,22.0,true,luxury,0.0,0,null,null,PHYSICAL
 pen4,this is pen4,12,1222.0,2.0,true,luxury,1200.0,9,pricepen4,percentpen4,PHYSICAL
 pen5,this is pen5,12,1212.0,21.0,false,luxury,12020.0,55,pricepen5,percentpen5,PHYSICAL
 video6,this is video6,5,5500.0,null,false,free,3000.0,2,pricevideo6,percentvideo6,DIGITAL
