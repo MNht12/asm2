@@ -21,7 +21,7 @@ public class App {
         Set<Product> productSet = new HashSet<>(); // productSet store all product objects
         List<ShoppingCart> cartList = new ArrayList<>(); // cartList store all cart objects
 
-        ShoppingList list = new ShoppingList();
+        ShoppingFeature feature = new ShoppingFeature();
 
         // get data from files and create product objects and cart objects
         try {
@@ -114,6 +114,7 @@ public class App {
                 }
                 ShoppingCart theCart = cartList.get(Integer.parseInt(cartNumber) - 1);
                 theCart.setProductSet(productSet); // set productSet to cart
+                feature.setProductSet(productSet); //set productSet to ShoppingFeature
                 theCart.showCartDetail(theCart);
                 System.out.println("\n");
 
@@ -147,9 +148,9 @@ public class App {
                                 System.out.println("Enter 1 to add new digital product, 2 to add new physical product:");
                                 String option2 = sc.nextLine();
                                 if (option2 == "1") {
-                                    productSet.add(ShoppingList.addDigital());
+                                    productSet.add(ShoppingFeature.addDigital());
                                 } else if (option2 == "2") {
-                                    productSet.add(ShoppingList.addPhysical());
+                                    productSet.add(ShoppingFeature.addPhysical());
                                 } else {
                                     System.out.println("Invalid input!");
                                 }
@@ -157,7 +158,8 @@ public class App {
                                 break;
                             }
                             case 2: {
-                                productSet = list.removeProduct();
+                                productSet = feature.removeProduct();
+                                System.out.println("\n");
                                 break;
                             }
                             case 3: {
