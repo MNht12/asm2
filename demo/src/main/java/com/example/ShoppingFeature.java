@@ -1,7 +1,9 @@
 package com.example;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -22,33 +24,70 @@ public class ShoppingFeature {
     }
 
     public static DigitalProduct addDigital() {
-      // productSet.add(new DigitalProduct(name, description, quantity, price, tax,
-      // isGift));
       Scanner sc = new Scanner(System.in);
       System.out.println("Enter name:");
       String name = sc.nextLine();
+      while (name.isEmpty()) {
+        System.out.println("Name cannot be empty");
+        System.out.println("Enter name:");
+        name = sc.nextLine();
+      }
 
       System.out.println("Enter description:");
       String description = sc.nextLine();
+      while (description.isEmpty()) {
+        System.out.println("Description cannot be empty");
+        System.out.println("Enter description:");
+        name = sc.nextLine();
+      }
 
       System.out.println("Enter quantity:");
-      int quantity = sc.nextInt();
-      sc.nextLine();
+      int quantity = 0;
+      try {
+          quantity = sc.nextInt();
+          if (quantity < 0) {
+              System.out.println("Quantity cannot be negative!");
+              System.out.println("Enter quantity:");
+              quantity = sc.nextInt();
+          }
+      } catch (InputMismatchException e) {
+          System.out.println("Invalid input");
+      }
 
       System.out.println("Enter price:");
-      double price = sc.nextDouble();
-      sc.nextLine();
+      Double price = 0.0;
+      try {
+          price = sc.nextDouble();
+          sc.nextLine();
+          if (quantity < 0) {
+              System.out.println("Price cannot be negative!");
+              System.out.println("Enter price:");
+              price = sc.nextDouble();
+              sc.nextLine();
+          }
+      } catch (InputMismatchException e) {
+          System.out.println("Invalid input");
+      }
+      
+      String tax = "";
+      while (!tax.equals("free") && !tax.equals("standard") && !tax.equals("luxury")) {
+        System.out.println("Enter tax(free/standard/luxury):");
+        tax = sc.nextLine();
+      }
 
-      System.out.println("Enter tax:");
-      String tax = sc.nextLine();
+      Boolean isGift = false;
+      while (!isGift.equals(true)) {
+          System.out.println("Enter if is gift (true/false):");
+          isGift = sc.nextBoolean();
+          sc.nextLine();
+          if (!isGift) {
+            break;
+          }
+      }
 
-      System.out.println("Enter isGift(true/false):");
-      boolean isGift = sc.nextBoolean();
-      sc.nextLine();
 
       DigitalProduct digital = new DigitalProduct(name, description, quantity, price, tax, isGift);
       return digital;
-
     }
 
     public static PhysicalProduct addPhysical() {
@@ -129,77 +168,81 @@ public class ShoppingFeature {
     public Set<Product> editProducts() {
       Scanner sc = new Scanner(System.in);
       System.out.println("Choose a product to edit:");
-      String ep = sc.nextLine();
-      for (Product p : productSet) {
-        if (p.getName().equals(ep)) {
-          if (p instanceof PhysicalProduct) {
-            System.out.println("Choose an attribute to change:\n" +
-                "1.Description\n" +
-                "2.Price\n" +
-                "3.Quantity\n" +
-                "4.Weight\n");
-            int atb = sc.nextInt();
-            sc.nextLine();
-            switch (atb) {
-              case 1: {
-                System.out.println("Input your Description:");
-                String newdes = sc.nextLine();
-                p.setDescription(newdes);
-                break;
+      try {
+        String ep = sc.nextLine();
+        for (Product p : productSet) {
+          if (p.getName().equals(ep)) {
+            if (p instanceof PhysicalProduct) {
+              System.out.println("Choose an attribute to change:\n" +
+                  "1.Description\n" +
+                  "2.Price\n" +
+                  "3.Quantity\n" +
+                  "4.Weight\n");
+              int atb = sc.nextInt();
+              sc.nextLine();
+              switch (atb) {
+                case 1: {
+                  System.out.println("Input your Description:");
+                  String newdes = sc.nextLine();
+                  p.setDescription(newdes);
+                  break;
+                }
+                case 2: {
+                  System.out.println("Input your Price:");
+                  double newpri = sc.nextDouble();
+                  sc.nextLine();
+                  p.setPrice(newpri);
+                  break;
+                }
+                case 3: {
+                  System.out.println("Input your Quantity:");
+                  int newqua = sc.nextInt();
+                  sc.nextLine();
+                  p.setQuantity(newqua);
+                  break;
+                }
+                case 4: {
+                  System.out.println("Input your Weight:");
+                  double newwei = sc.nextInt();
+                  sc.nextLine();
+                  ((PhysicalProduct) p).setWeight(newwei);
+                  break;
+                }
               }
-              case 2: {
-                System.out.println("Input your Price:");
-                double newpri = sc.nextDouble();
-                sc.nextLine();
-                p.setPrice(newpri);
-                break;
-              }
-              case 3: {
-                System.out.println("Input your Quantity:");
-                int newqua = sc.nextInt();
-                sc.nextLine();
-                p.setQuantity(newqua);
-                break;
-              }
-              case 4: {
-                System.out.println("Input your Weight:");
-                double newwei = sc.nextInt();
-                sc.nextLine();
-                ((PhysicalProduct) p).setWeight(newwei);
-                break;
-              }
-            }
-          } else {
-            System.out.println("Choose an attribute to change:\n" +
-                "1.Description\n" +
-                "2.Price\n" +
-                "3.Quantity\n");
-            int atb = sc.nextInt();
-            sc.nextLine();
-            switch (atb) {
-              case 1: {
-                System.out.println("Input your Description:");
-                String newdes = sc.nextLine();
-                p.setDescription(newdes);
-                break;
-              }
-              case 2: {
-                System.out.println("Input your Price:");
-                double newpri = sc.nextDouble();
-                sc.nextLine();
-                p.setPrice(newpri);
-                break;
-              }
-              case 3: {
-                System.out.println("Input your Quantity:");
-                int newqua = sc.nextInt();
-                sc.nextLine();
-                p.setQuantity(newqua);
-                break;
+            } else {
+              System.out.println("Choose an attribute to change:\n" +
+                  "1.Description\n" +
+                  "2.Price\n" +
+                  "3.Quantity\n");
+              int atb = sc.nextInt();
+              sc.nextLine();
+              switch (atb) {
+                case 1: {
+                  System.out.println("Input your Description:");
+                  String newdes = sc.nextLine();
+                  p.setDescription(newdes);
+                  break;
+                }
+                case 2: {
+                  System.out.println("Input your Price:");
+                  double newpri = sc.nextDouble();
+                  sc.nextLine();
+                  p.setPrice(newpri);
+                  break;
+                }
+                case 3: {
+                  System.out.println("Input your Quantity:");
+                  int newqua = sc.nextInt();
+                  sc.nextLine();
+                  p.setQuantity(newqua);
+                  break;
+                }
               }
             }
           }
         }
+      } catch (Exception e) {
+        System.out.println("Invalid input!");
       }
       return productSet;
     }
