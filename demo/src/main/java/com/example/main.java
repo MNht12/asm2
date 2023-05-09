@@ -1,12 +1,15 @@
 package com.example;
 
+/**
+ * @author Nguyen Minh Nhat, Nguyen Cong Thinh, Nguyen Dang Ha, Don Tuan Duong
+ */
+
 import java.io.*;
 import java.util.stream.*;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
@@ -111,18 +114,26 @@ public class main {
             String cartNumber = "";
 
             try {
-                int size = cartList.size();
-                System.out.println("There are: " + size + " carts, please chose cart number between 1 - " + size);
-                System.out.println("Enter cart number OR enter QUIT/quit to exit program.");
-                cartNumber = sc.nextLine();
-                if (cartNumber.equals("QUIT") || cartNumber.equals("quit")) { // If user enter quit/Quit then exit the program
-                    break;
+                ShoppingCart theCart = cartList.get(0);
+                boolean isOpen = false;
+                while (!isOpen) {
+                    int size = cartList.size();
+                    System.out.println("There are: " + size + " carts, please chose cart number between 1 - " + size);
+                    System.out.println("Enter cart number OR enter QUIT/quit to exit program.");
+                    cartNumber = sc.nextLine();
+                    if (cartNumber.equals("QUIT") || cartNumber.equals("quit")) { // If user enter quit/Quit then exit the program
+                        isOpen = true;
+                        break;
+                    }
+                    theCart = cartList.get(Integer.parseInt(cartNumber) - 1);
+                    if (theCart.getStatus()) {
+                        theCart.showCartDetail(theCart);
+                        System.out.println("\n");
+                        isOpen = true;
+                    } else {
+                        System.out.println("This cart has been closed, please choose another cart!");
+                    }
                 }
-                ShoppingCart theCart = cartList.get(Integer.parseInt(cartNumber) - 1);
-                theCart.getStatus();
-                theCart.showCartDetail(theCart);
-                System.out.println("\n");
-
                 boolean running = true;
                 // UI using Switch case
                 while (running) {
@@ -220,6 +231,7 @@ public class main {
                                 // Print purchase receipts
                                 theCart.cartAmount(theCart);
                                 System.out.println("\n");
+                                running = false;
                                 break;
                             }
                             case 12: {
@@ -241,7 +253,7 @@ public class main {
                             }
                             case 0: {
                                 // Go back to select cart
-                                System.out.println("BACK");
+                                System.out.println("Going back");
                                 running = false;
                             }
                             default: {
