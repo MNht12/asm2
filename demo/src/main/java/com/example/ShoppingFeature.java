@@ -87,7 +87,6 @@ public class ShoppingFeature {
           }
       }
 
-
       DigitalProduct digital = new DigitalProduct(name, description, quantity, price, tax, isGift);
       return digital;
     }

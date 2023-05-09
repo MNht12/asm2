@@ -126,7 +126,7 @@ public class main {
                         break;
                     }
                     theCart = cartList.get(Integer.parseInt(cartNumber) - 1);
-                    if (theCart.getStatus()) {
+                    if (theCart.getStatus()) { // check cart status if close or not
                         theCart.showCartDetail(theCart);
                         System.out.println("\n");
                         isOpen = true;
@@ -187,7 +187,11 @@ public class main {
                             }
                             case 4: {
                                 // Add product items to shopping carts
-                                theCart.addToCart();
+                                System.out.println("Enter product name to add item to cart:");
+                                String name = sc.nextLine();
+                                System.out.println("Enter quantity:");
+                                String quantity = sc.nextLine();
+                                theCart.addItem(name,quantity);
                                 System.out.println("\n");
                                 break;
                             }
@@ -199,7 +203,9 @@ public class main {
                             }
                             case 6: {
                                 // View messages for gift product items
-                                theCart.getMessage();
+                                System.out.println("Enter Product name: ");
+                                String productName = sc.nextLine();
+                                theCart.getMessage(productName);
                                 System.out.println("\n");
                                 break;
                             }
@@ -211,7 +217,9 @@ public class main {
                             }
                             case 8: {
                                 // Apply coupon to cart
-                                theCart.addCoupon();
+                                System.out.println("By entering a coupon, the previous coupon (if have) will be replaced with the new coupon!");
+                                String code = sc.nextLine();
+                                theCart.addCoupon(code);
                                 System.out.println("\n");
                                 break;
                             }
