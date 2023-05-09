@@ -1,4 +1,8 @@
 package com.example;
+/**
+ * @author Nguyen Minh Nhat, Nguyen Cong Thinh, Nguyen Dang Ha, Don Tuan Duong
+ */
+
 public class PhysicalProduct extends Product{
     private double weight;
 
@@ -37,22 +41,16 @@ public class PhysicalProduct extends Product{
 
         String tax = getTax();
         int taxPercentage = 0;
-        boolean isTaxType = false;
 
         if (tax.equals("free")) {
             taxPercentage = 0;
-            isTaxType = true;
         } else if (tax.equals("standard")) {
             taxPercentage = 10;
-            isTaxType = true;
         } else if (tax.equals("luxury")) {
             taxPercentage = 20;
-            isTaxType = true;
         } else {
             System.out.println("Invalid value output!");
-            isTaxType = false;
         }
-
         return taxPercentage;
     }
 }

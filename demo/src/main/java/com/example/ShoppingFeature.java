@@ -1,7 +1,9 @@
 package com.example;
 
-import java.text.ParseException;
-import java.util.ArrayList;
+/**
+ * @author Nguyen Minh Nhat, Nguyen Cong Thinh, Nguyen Dang Ha, Don Tuan Duong
+ */
+
 import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.List;

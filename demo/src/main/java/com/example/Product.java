@@ -1,7 +1,8 @@
 package com.example;
 
-import java.util.Scanner;
-
+/**
+ * @author Nguyen Minh Nhat, Nguyen Cong Thinh, Nguyen Dang Ha, Don Tuan Duong
+ */
 public abstract class Product implements isCoupon {
     private String name;
     private String description;
