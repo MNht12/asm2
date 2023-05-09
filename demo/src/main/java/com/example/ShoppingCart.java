@@ -14,6 +14,75 @@ public class ShoppingCart implements isGift {
         this.cart = new ArrayList<String[]>();
     }
 
+    // // Show cart details
+    // public void showCartDetail(ShoppingCart theCart) {
+    //     // theCart.setProductSet(productSet); //set productSet to cart
+    //     ArrayList<String[]> cart = theCart.getCart();
+
+    //     String[] cartcoupon = cart.get(0);
+    //     String coupon = cartcoupon[0];
+    //     if (cartcoupon[0].equals("null")) {
+    //         coupon = "<No coupon>";
+    //     }
+    //     System.out.println("Cart coupon: " + coupon);
+    //     System.out.println("All items in this cart:");
+    //     int cartSize = cart.size();
+    //     List<String> allCoupon = new ArrayList<>();
+    //     int tax = 0;
+    //     double fee = 0.0;
+    //     double price = 0;
+    //     String itemName = "";
+    //     String itemQuantity = "";
+    //     String itemGiftMessage = "";
+    //     double totalWeight = 0.0;
+    //     double totalAmount = 0.0;
+        
+        
+    //     for (int i = 1; i < cartSize; i++) {
+    //         String[] productItem = cart.get(i);
+    //         itemName = productItem[0];
+    //         itemQuantity = productItem[1];
+    //         itemGiftMessage = productItem[2];
+
+    //         for (Product p : productSet) {
+    //             if (p.getName().equals(itemName)) {
+
+    //                 price += p.getPrice() * Integer.parseInt(itemQuantity);
+
+    //                 tax += p.getPrice() * (p.taxPercentage() / 100) * Integer.parseInt(itemQuantity);
+
+    //                 if (p instanceof PhysicalProduct) {
+    //                     totalWeight += ((PhysicalProduct) p).getWeight() * Integer.parseInt(itemQuantity);
+    //                     fee += totalWeight * 0.1;
+    //                 }
+    //             }
+    //         }
+            
+    //         totalAmount += price + tax + fee;
+
+    //         if (itemGiftMessage.equals("null")) {
+    //             itemGiftMessage = "<No gift message>";
+    //         }
+    //         System.out.println("Item name: " + itemName + ", Item quantity: " + itemQuantity + ", Item gift message: "
+    //                 + itemGiftMessage);
+    //         for (Product product : productSet) {
+    //             if (product.getName().equals(itemName)) {
+    //                 if (!product.getPriceCode().equals("null")) {
+    //                     allCoupon.add(product.getPriceCode());
+    //                 }
+    //                 if (!product.getPercentCode().equals("null")) {
+    //                     allCoupon.add(product.getPercentCode());
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     System.out.println("FEE: " + fee);
+
+    //     System.out.println("Here are all the coupons that you can apply to this cart: " + allCoupon);
+    // }
+
+
     // Show cart details
     public void showCartDetail(ShoppingCart theCart) {
         // theCart.setProductSet(productSet); //set productSet to cart
@@ -28,7 +97,12 @@ public class ShoppingCart implements isGift {
         System.out.println("All items in this cart:");
         int cartSize = cart.size();
         List<String> allCoupon = new ArrayList<>();
-        int tax = 0;
+        //var to get value for each product
+        double productPrice = 0;
+        double productTax = 0;
+        double productFee = 0;
+        //var to be used return total
+        double tax = 0;
         double fee = 0.0;
         double price = 0;
         String itemName = "";
@@ -47,18 +121,22 @@ public class ShoppingCart implements isGift {
             for (Product p : productSet) {
                 if (p.getName().equals(itemName)) {
 
-                    price += p.getPrice() * Integer.parseInt(itemQuantity);
+                    productPrice = p.getPrice() * Integer.parseInt(itemQuantity); //will be not added up the following product
+                    price += p.getPrice() * Integer.parseInt(itemQuantity); //will be added up by the following product
 
-                    tax += p.getPrice() * (p.taxPercentage() / 100) * Integer.parseInt(itemQuantity);
+                    productTax += (p.getPrice() * p.taxPercentage())/100 * Integer.parseInt(itemQuantity); //will be not added up the following product
+                    tax += (p.getPrice() * p.taxPercentage())/100 * Integer.parseInt(itemQuantity); //will be added up by the following product
 
                     if (p instanceof PhysicalProduct) {
-                        totalWeight += ((PhysicalProduct) p).getWeight() * Integer.parseInt(itemQuantity);
-                        fee += totalWeight * 0.1;
+                        productFee = p.getPrice() * ((PhysicalProduct) p).getWeight() * Integer.parseInt(itemQuantity) * 0.1; //will be not added up the following product
+                        fee += p.getPrice() * ((PhysicalProduct) p).getWeight() * Integer.parseInt(itemQuantity) * 0.1; //will be added up by the following product
                     }
                 }
             }
+
+            //return value for each item in cart
+            //System.out.println("Item name: " + itemName + ", Item quantity: " + itemQuantity + ", Price: " + productPrice);
             
-            totalAmount += price + tax + fee;
 
             if (itemGiftMessage.equals("null")) {
                 itemGiftMessage = "<No gift message>";
@@ -76,8 +154,14 @@ public class ShoppingCart implements isGift {
                 }
             }
         }
-
-        System.out.println("FEE: " + fee);
+        
+        //return each value of the cart
+        System.out.println("Cart price: " + price);
+        System.out.println("Cart tax: " + tax);
+        System.out.println("Shipping fee: " + fee);
+        //return total amount of cart
+        totalAmount += price + tax + fee;
+        System.out.println("Cart total: " + totalAmount);
 
         System.out.println("Here are all the coupons that you can apply to this cart: " + allCoupon);
     }
@@ -204,7 +288,7 @@ public class ShoppingCart implements isGift {
 
                     for (int i = 1; i < cart.size(); i++) {
                         String[] itemData = cart.get(i);
-                        if (itemData[2].equals("null") && itemData[0].equals(productName)) { // if there is NO a gift message for item user entered
+                        if (itemData[2].equals("null") && itemData[0].equals(productName)) { // if there is NO gift message for item user entered
                             System.out.println("Enter new gift message:");
                             String message = sc.nextLine();
                             if (itemData[1].equals("1")) {
@@ -212,7 +296,7 @@ public class ShoppingCart implements isGift {
                             } else {
                                 int quantity = Integer.parseInt(itemData[1])-1;
                                 cart.get(i)[1] = Integer.toString(quantity);
-                                String[] giftItem = {itemData[0],"1",message,itemData[3]};
+                                String[] giftItem = {itemData[0],"1",message};
                                 setData(giftItem);
                             }
                             found = true;
@@ -274,6 +358,105 @@ public class ShoppingCart implements isGift {
     }
 
     public void addToCart() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter product name to add item to cart:");
+        String name = sc.nextLine();
+        boolean inCart = false; 
+        boolean found = false;
+        for (Product product : productSet) {
+            if (product.getName().equals(name)) {
+                found = true;
+                for (int i = 1; i < cart.size(); i++) {
+                    String[] itemData = cart.get(i);
+                    if (itemData[0].equals(name) && itemData[2].equals("null")) {
+                        inCart = true;
+                        System.out.println("Enter quantity:");
+                        String quantity = sc.nextLine();
+                        if (product.getQuantity() < Integer.parseInt(quantity)) {
+                            System.out.println("Product: "+ name+" quantity only has "+ product.getQuantity());
+                        } else {
+                            cart.get(i)[1] = String.valueOf(Integer.parseInt(itemData[1]) + Integer.parseInt(quantity));
+                            product.setQuantity(product.getQuantity() - Integer.parseInt(quantity));
+                            System.out.println("Added "+quantity+" Item: "+ itemData[0]);
+                        }
+                    } 
+                }
+                if (!inCart) {
+                    System.out.println("Enter quantity:");
+                    String quantity = sc.nextLine();
+                    for (Product p : productSet) {
+                        if (p.getQuantity() < Integer.parseInt(quantity) && p.getName().equals(name)) {
+                            System.out.println("Product: "+ name+" quantity only has "+ product.getQuantity());
+                            found = true;
+                        } else if (p.getName().equals(name) && p.getQuantity() >= Integer.parseInt(quantity)) {
+                            String[] item = {name,quantity,"null"};
+                            setData(item);
+                            product.setQuantity(product.getQuantity() - Integer.parseInt(quantity));
+                            System.out.println("Added "+quantity+" Item: "+ p.getName());
+                            found = true;
+                        }
+                    }
+                }
+            }
+        }
+        if (!found) {
+            System.out.println("There is no product with name: "+name);
+        }
+    }
 
+    public boolean removeItem(ShoppingCart theCart) {
+        ArrayList<String[]> cart = theCart.getCart();
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter item name to remove");
+        String removeCart = sc.nextLine();
+
+        for (int i = 0; i < cart.size(); i++) {
+            String[] productItem = cart.get(i);
+            if (Arrays.asList(productItem).contains(removeCart)) {
+                int quantity = Integer.parseInt(productItem[1]);
+                cart.remove(i);
+                for (Product p : productSet) {
+                    if (p.getName().equals(removeCart)) {
+                        p.setQuantity(p.getQuantity()+quantity);
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int calculateWeight() {
+        int totalWeight = 0;
+        for (int i = 1; i < cart.size(); i++) { // loop all items in cart
+            String[] itemData = cart.get(i);
+            double itemWeight = 0;
+            for (Product product : productSet) {
+                if (product instanceof PhysicalProduct) {
+                    if (product.getName().equals(itemData[0])) {
+                        itemWeight = ((PhysicalProduct) product).getWeight(); // get item weight
+                        itemWeight *= Double.parseDouble(itemData[1]); // item weight * with quantity
+                    }
+                }
+            }
+            totalWeight += itemWeight;
+        }
+        return totalWeight;
+    }
+
+    public String[] getCoupon() {
+        String coupon = cart.get(0)[0];
+        for (Product product : productSet) {
+            if (coupon.equals(product.getPercentCode())) { // check code is percent coupon or not
+                String[] percent = {"int",Integer.toString(product.getPercentCoupon())}; 
+                return percent;
+            } else if (coupon.equals(product.getPriceCode())) { // check code is price coupon or not
+                String[] price = {"double",String.valueOf(product.getCouponPrice())};
+                return price;
+            }
+        }
+        String[] noCoupon = {"0","0"}; // if no coupon code then return 0
+        return noCoupon;
     }
 }

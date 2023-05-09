@@ -1,15 +1,13 @@
 package com.example;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
 public class ShoppingFeature {
     Set<Product> productSet;
-
-    // public ShoppingList(Set<Product> productSet) {
-    //   this.productSet = productSet;
-    // }
 
     public ShoppingFeature() {
       productSet = new HashSet<Product>();
@@ -120,6 +118,89 @@ public class ShoppingFeature {
         productSet.remove(digital);
       }
       System.out.println("Product name: " + removeProduct + " has been removed!");
+      return productSet;
+    }
+
+    public List<ShoppingCart> sortCart(List<ShoppingCart> cartList) {
+      cartList.sort(new SortByWeight());
+      return cartList;
+    }
+
+    public Set<Product> editProducts() {
+      Scanner sc = new Scanner(System.in);
+      System.out.println("Choose a product to edit:");
+      String ep = sc.nextLine();
+      for (Product p : productSet) {
+        if (p.getName().equals(ep)) {
+          if (p instanceof PhysicalProduct) {
+            System.out.println("Choose an attribute to change:\n" +
+                "1.Description\n" +
+                "2.Price\n" +
+                "3.Quantity\n" +
+                "4.Weight\n");
+            int atb = sc.nextInt();
+            sc.nextLine();
+            switch (atb) {
+              case 1: {
+                System.out.println("Input your Description:");
+                String newdes = sc.nextLine();
+                p.setDescription(newdes);
+                break;
+              }
+              case 2: {
+                System.out.println("Input your Price:");
+                double newpri = sc.nextDouble();
+                sc.nextLine();
+                p.setPrice(newpri);
+                break;
+              }
+              case 3: {
+                System.out.println("Input your Quantity:");
+                int newqua = sc.nextInt();
+                sc.nextLine();
+                p.setQuantity(newqua);
+                break;
+              }
+              case 4: {
+                System.out.println("Input your Weight:");
+                double newwei = sc.nextInt();
+                sc.nextLine();
+                ((PhysicalProduct) p).setWeight(newwei);
+                break;
+              }
+            }
+          } else {
+            System.out.println("Choose an attribute to change:\n" +
+                "1.Description\n" +
+                "2.Price\n" +
+                "3.Quantity\n");
+            int atb = sc.nextInt();
+            sc.nextLine();
+            switch (atb) {
+              case 1: {
+                System.out.println("Input your Description:");
+                String newdes = sc.nextLine();
+                p.setDescription(newdes);
+                break;
+              }
+              case 2: {
+                System.out.println("Input your Price:");
+                double newpri = sc.nextDouble();
+                sc.nextLine();
+                p.setPrice(newpri);
+                break;
+              }
+              case 3: {
+                System.out.println("Input your Quantity:");
+                int newqua = sc.nextInt();
+                sc.nextLine();
+                p.setQuantity(newqua);
+                break;
+              }
+            }
+          }
+        }
+      }
       return productSet;
     }
 }

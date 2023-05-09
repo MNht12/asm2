@@ -16,7 +16,7 @@ import java.util.Set;
  * Hello world!
  *
  */
-public class App {
+public class main {
     public static void main(String[] args) {
         Set<Product> productSet = new HashSet<>(); // productSet store all product objects
         List<ShoppingCart> cartList = new ArrayList<>(); // cartList store all cart objects
@@ -100,6 +100,12 @@ public class App {
         }
 
         while (true) {
+            for (ShoppingCart shoppingCart : cartList) {
+                shoppingCart.setProductSet(productSet);
+            }
+            feature.setProductSet(productSet); //set productSet to ShoppingFeature
+            feature.sortCart(cartList); // sort all carts by weight
+
             // Select cart
             Scanner sc = new Scanner(System.in);
             String cartNumber = "";
@@ -113,8 +119,6 @@ public class App {
                     break;
                 }
                 ShoppingCart theCart = cartList.get(Integer.parseInt(cartNumber) - 1);
-                theCart.setProductSet(productSet); // set productSet to cart
-                feature.setProductSet(productSet); //set productSet to ShoppingFeature
                 theCart.showCartDetail(theCart);
                 System.out.println("\n");
 
@@ -125,7 +129,7 @@ public class App {
                     try {
                         System.out.println("Enter an option to continue:");
                         System.out.println(
-                                "1 Add new product to store\n" +
+                                        "1 Add new product to store\n" +
                                         "2 Remove product from store\n" +
                                         "3 Edit product\n" +
                                         "4 Add product items to shopping carts\n" +
@@ -158,20 +162,27 @@ public class App {
                                 break;
                             }
                             case 2: {
+                                // Remove product
                                 productSet = feature.removeProduct();
                                 System.out.println("\n");
                                 break;
                             }
                             case 3: {
                                 // Edit product
+                                productSet = feature.editProducts();
+                                System.out.println(theCart.getCoupon());
                                 break;
                             }
                             case 4: {
                                 // Add product items to shopping carts
+                                theCart.addToCart();
+                                System.out.println("\n");
                                 break;
                             }
                             case 5: {
                                 // Remove product items from shopping carts
+                                theCart.removeItem(theCart);
+                                System.out.println("\n");
                                 break;
                             }
                             case 6: {
@@ -210,6 +221,11 @@ public class App {
                             }
                             case 12: {
                                 // Sort cart
+                                int num = 0;
+                                for (ShoppingCart shoppingCart : cartList) {
+                                    num++;
+                                    System.out.println("Cart No."+num+" Weight: "+shoppingCart.calculateWeight());
+                                }
                                 break;
                             }
                             case 13: {
