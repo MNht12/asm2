@@ -109,9 +109,9 @@ public class main {
             // Select cart
             Scanner sc = new Scanner(System.in);
             String cartNumber = "";
-            int size = cartList.size();
 
             try {
+                int size = cartList.size();
                 System.out.println("There are: " + size + " carts, please chose cart number between 1 - " + size);
                 System.out.println("Enter cart number OR enter QUIT/quit to exit program.");
                 cartNumber = sc.nextLine();
@@ -119,6 +119,7 @@ public class main {
                     break;
                 }
                 ShoppingCart theCart = cartList.get(Integer.parseInt(cartNumber) - 1);
+                theCart.getStatus();
                 theCart.showCartDetail(theCart);
                 System.out.println("\n");
 
@@ -137,7 +138,7 @@ public class main {
                                         "6 View messages for gift product items\n" +
                                         "7 Update messages for gift product items\n" +
                                         "8 Apply coupon to cart\n" +
-                                        "9 Remove coupons to cart\n" +
+                                        "9 Remove coupons from cart\n" +
                                         "10 View cart details\n" +
                                         "11 Print purchase receipts\n" +
                                         "12 Sort cart\n" +
@@ -151,9 +152,9 @@ public class main {
                                 // Add new product to store
                                 System.out.println("Enter 1 to add new digital product, 2 to add new physical product:");
                                 String option2 = sc.nextLine();
-                                if (option2 == "1") {
+                                if (option2.equals("1")) {
                                     productSet.add(ShoppingFeature.addDigital());
-                                } else if (option2 == "2") {
+                                } else if (option2.equals("2")) {
                                     productSet.add(ShoppingFeature.addPhysical());
                                 } else {
                                     System.out.println("Invalid input!");
@@ -170,7 +171,7 @@ public class main {
                             case 3: {
                                 // Edit product
                                 productSet = feature.editProducts();
-                                System.out.println(theCart.getCoupon());
+                                System.out.println("\n");
                                 break;
                             }
                             case 4: {
@@ -217,6 +218,8 @@ public class main {
                             }
                             case 11: {
                                 // Print purchase receipts
+                                theCart.cartAmount(theCart);
+                                System.out.println("\n");
                                 break;
                             }
                             case 12: {
